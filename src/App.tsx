@@ -27,7 +27,7 @@ function App() {
           </main>
 
           <footer className="p-6 text-center text-gray-500 text-sm border-t border-white/5">
-            <p>© {new Date().getFullYear()} Website by Denush</p>
+            <p>© {new Date().getFullYear()} Website by Denish</p>
           </footer>
         </div>
       </div>
