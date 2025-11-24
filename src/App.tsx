@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
+import History from './pages/History';
 
 function App() {
   return (
@@ -20,12 +21,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/gallery" element={<Gallery />} />
+              <Route path="/history" element={<History />} />
               <Route path="/about" element={<About />} />
             </Routes>
           </main>
 
           <footer className="p-6 text-center text-gray-500 text-sm border-t border-white/5">
-            <p>© {new Date().getFullYear()} MagicGen. Powered by AI.</p>
+            <p>© {new Date().getFullYear()} Website by Denush</p>
           </footer>
         </div>
       </div>

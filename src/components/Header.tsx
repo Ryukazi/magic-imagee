@@ -21,6 +21,12 @@ const Header: React.FC = () => {
                     Gallery
                 </Link>
                 <Link
+                    to="/history"
+                    className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors hover:bg-white/5 rounded-lg"
+                >
+                    History
+                </Link>
+                <Link
                     to="/about"
                     className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white transition-colors hover:bg-white/5 rounded-lg"
                 >

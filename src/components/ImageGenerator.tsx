@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Wand2, Download, Share2, Loader2, Sparkles, Layers } from 'lucide-react';
+import { addToHistory } from '../utils/storage';
 
 type ModelType = 'magic' | 'pollinations';
 
@@ -30,14 +31,25 @@ const ImageGenerator: React.FC = () => {
                 );
                 const url = URL.createObjectURL(response.data);
                 setImageUrls([url]);
+                addToHistory({
+                    url: url,
+                    prompt: prompt,
+                    model: 'Magic Model'
+                });
             } else {
                 // Pollinations AI
+                const pollUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?nologo=true&width=512&height=512`;
                 const response = await axios.get(
-                    `https://image.pollinations.ai/prompt/${encodedPrompt}?nologo=true&width=512&height=512`,
+                    pollUrl,
                     { responseType: 'blob' }
                 );
                 const url = URL.createObjectURL(response.data);
                 setImageUrls([url]);
+                addToHistory({
+                    url: pollUrl,
+                    prompt: prompt,
+                    model: 'Pollinations AI'
+                });
             }
 
         } catch (err) {
