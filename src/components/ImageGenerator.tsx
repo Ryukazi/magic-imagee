@@ -3,7 +3,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Wand2, Download, Share2, Loader2, Sparkles, Layers } from 'lucide-react';
 
-type ModelType = 'magic' | 'gen';
+type ModelType = 'magic' | 'pollinations';
 
 const ImageGenerator: React.FC = () => {
     const [prompt, setPrompt] = useState('');
@@ -31,25 +31,13 @@ const ImageGenerator: React.FC = () => {
                 const url = URL.createObjectURL(response.data);
                 setImageUrls([url]);
             } else {
+                // Pollinations AI
                 const response = await axios.get(
-                    `https://dens-gen.vercel.app/api/generate?prompt=${encodedPrompt}`
+                    `https://image.pollinations.ai/prompt/${encodedPrompt}?nologo=true&width=512&height=512`,
+                    { responseType: 'blob' }
                 );
-                // Handle different possible JSON structures
-                const data = response.data;
-                if (Array.isArray(data)) {
-                    setImageUrls(data);
-                } else if (data.images && Array.isArray(data.images)) {
-                    setImageUrls(data.images);
-                } else if (data.output && Array.isArray(data.output)) {
-                    setImageUrls(data.output);
-                } else {
-                    // Fallback if structure is unknown, wrap in array if string
-                    setImageUrls(typeof data === 'string' ? [data] : []);
-                    if (!Array.isArray(data) && !data.images && !data.output && typeof data !== 'string') {
-                        console.error('Unexpected API response format:', data);
-                        setError('Received unexpected data format from API.');
-                    }
-                }
+                const url = URL.createObjectURL(response.data);
+                setImageUrls([url]);
             }
 
         } catch (err) {
@@ -107,14 +95,14 @@ const ImageGenerator: React.FC = () => {
                     Magic Model
                 </button>
                 <button
-                    onClick={() => setSelectedModel('gen')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${selectedModel === 'gen'
+                    onClick={() => setSelectedModel('pollinations')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${selectedModel === 'pollinations'
                             ? 'bg-secondary text-white shadow-lg shadow-secondary/25'
                             : 'text-gray-400 hover:text-white hover:bg-white/5'
                         }`}
                 >
                     <Layers className="w-4 h-4" />
-                    Gen Model
+                    Pollinations AI
                 </button>
             </motion.div>
 
